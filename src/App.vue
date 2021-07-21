@@ -37,7 +37,7 @@ export default {
     methods: {
         // function to connect to API
         getWeatherData() {
-            let api = 'http://datapoint.metoffice.gov.uk/public/data/val/wxfcs/all/json/310012?res=3hourly&key=1acb56e9-c15e-4547-a783-d93aa5a9ef81'
+            let api = 'https://datapoint.metoffice.gov.uk/public/data/val/wxfcs/all/json/310012?res=3hourly&key=1acb56e9-c15e-4547-a783-d93aa5a9ef81'
             this.axios.get(api).then((response) => {
                 this.$set(this.weatherData, 'info', response.data['SiteRep']['DV'])
                 this.$set(this.weatherData, 'weatherParams', response.data['SiteRep']['Wx']['Param'])
