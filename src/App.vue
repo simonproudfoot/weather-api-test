@@ -1,7 +1,6 @@
 <template>
 <div id="app">
     <h1>Weather API test</h1>
-
     <div v-if="weatherData.weatherParams.length">
         <select v-model="dateSelected">
             <option value="">Select day</option>
@@ -10,21 +9,19 @@
         <!-- pass the data to the side window -->
         <main v-if="weatherData.info.Location">
             <dataWindow :data="weatherData" :dateInfo="dateInfo" />
-
             <gmap-map ref="mymap" :center="position" class="map" :zoom="12" :options="{disableDefaultUI: true, gestureHandling: 'none'}">
             </gmap-map>
-            <div class="sWeather" v-if="significantWeather.length">
-                Change to icons
+            <div class="sWeather">
+                <strong>
+                Weather throught the day </strong><br><small>(Change to icons)</small>
                 <p v-for="(time, i) in significantWeather" :key="i">{{time}}</p>
             </div>
         </main>
     </div>
 </div>
 </template>
-
 <script>
 import dataWindow from './components/dataWindow.vue'
-
 export default {
     name: 'App',
     data: function () {
