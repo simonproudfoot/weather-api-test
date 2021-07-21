@@ -13,13 +13,14 @@
             </gmap-map>
             <div class="sWeather">
                 <strong>
-                Weather throught the day </strong><br><small>(Change to icons)</small>
+                    Weather throught the day </strong><br><small>(Change to icons)</small>
                 <p v-for="(time, i) in significantWeather" :key="i">{{time}}</p>
             </div>
         </main>
     </div>
 </div>
 </template>
+
 <script>
 import dataWindow from './components/dataWindow.vue'
 export default {
@@ -37,7 +38,7 @@ export default {
     methods: {
         // function to connect to API
         getWeatherData() {
-            let api = 'https://datapoint.metoffice.gov.uk/public/data/val/wxfcs/all/json/310012?res=3hourly&key=1acb56e9-c15e-4547-a783-d93aa5a9ef81'
+            let api = 'http://datapoint.metoffice.gov.uk/public/data/val/wxfcs/all/json/310012?res=3hourly&key=1acb56e9-c15e-4547-a783-d93aa5a9ef81'
             this.axios.get(api).then((response) => {
                 this.$set(this.weatherData, 'info', response.data['SiteRep']['DV'])
                 this.$set(this.weatherData, 'weatherParams', response.data['SiteRep']['Wx']['Param'])
@@ -158,6 +159,13 @@ export default {
     },
     created() {
         this.getWeatherData() // load the function when the app loads
+
+        if (window.location.protocol.indexOf('https') == 0) {
+            var el = document.createElement('meta')
+            el.setAttribute('http-equiv', 'Content-Security-Policy')
+            el.setAttribute('content', 'upgrade-insecure-requests')
+            document.head.append(el)
+        }
     },
     components: {
         dataWindow
