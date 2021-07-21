@@ -1,23 +1,30 @@
 <template>
 <div id="app">
     <h1>Weather API test</h1>
-    <!-- pass the data to the side window -->
-    <main v-if="weatherData.info.Location">
-        <dataWindow :data="weatherData" :dayInfo="dateInfo" />
+
+    <div v-if="weatherData.weatherParams.length">
         <select v-model="dateSelected">
             <option value="">Select day</option>
             <option v-for="(day, i) in weatherData.info.Location.Period" :value="day.value" :key="i">{{day.value.replace('Z', '')}}</option>
         </select>
+        <!-- pass the data to the side window -->
+        <main v-if="weatherData.info.Location">
+            <dataWindow :data="weatherData" :dateInfo="dateInfo" />
 
-        <gmap-map ref="mymap" :center="position" class="map" :zoom="12" :options="{disableDefaultUI: true, gestureHandling: 'none'}">
-        </gmap-map>
-        <small class="footer">{{significantWeather}}</small>
-    </main>
+            <gmap-map ref="mymap" :center="position" class="map" :zoom="12" :options="{disableDefaultUI: true, gestureHandling: 'none'}">
+            </gmap-map>
+            <div class="sWeather" v-if="significantWeather.length">
+                Change to icons
+                <p v-for="(time, i) in significantWeather" :key="i">{{time}}</p>
+            </div>
+        </main>
+    </div>
 </div>
 </template>
 
 <script>
 import dataWindow from './components/dataWindow.vue'
+
 export default {
     name: 'App',
     data: function () {
@@ -115,10 +122,41 @@ export default {
                 if (x.W === '19') {
                     arr.push('Hail shower(night)')
                 }
+                if (x.W === '20') {
+                    arr.push('Hail shower(day)')
+                }
+                if (x.W === '21') {
+                    arr.push('Hail')
+                }
+                if (x.W === '22') {
+                    arr.push('Light snow shower(night)')
+                }
+                if (x.W === '23') {
+                    arr.push('Light snow shower(day)')
+                }
+                if (x.W === '24') {
+                    arr.push('Light snow')
+                }
+                if (x.W === '25') {
+                    arr.push('Heavy snow shower(night)')
+                }
+                if (x.W === '26') {
+                    arr.push('Heavy snow shower(day)')
+                }
+                if (x.W === '27') {
+                    arr.push('Heavy snow shower')
+                }
+                if (x.W === '28') {
+                    arr.push('Heavy snow shower')
+                }
+                if (x.W === '29') {
+                    arr.push('Heavy snow shower')
+                }
+                if (x.W === '30') {
+                    arr.push('Heavy snow shower')
+                }
             });
-
             return arr
-            // 20 Hail shower(day) 21 Hail22Light snow shower(night) 23 Light snow shower(day) 24 Light snow25Heavy snow shower(night) 26 Heavy snow shower(day) 27 Heavy snow28Thunder shower(night) 29 Thunder shower(day) 30 Thunder
         }
     },
     created() {
@@ -150,12 +188,14 @@ body {
     height: calc(85vh);
 }
 
-.footer {
+.sWeather {
     position: absolute;
     bottom: 0;
-    background-color: #fff;
-    width: 100%;
-    left: 0;
+    background-color: #0000ffc4;
+    width: auto;
+    left: 1em;
+    color: blanchedalmond;
+    padding: 1em;
 }
 
 main {

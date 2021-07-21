@@ -1,8 +1,8 @@
 <template>
 <div class="dataWindow">
-    <div v-if="dayInfo.length" style="padding: 1em">
-        <h2>Filter by day</h2>
-        <pre>{{dayInfo}}</pre>
+    <div v-if="dateInfo.length" style="padding: 1em">
+        <h2>Filtered by day</h2>
+        <pre>{{dateInfo}}</pre>
     </div>
     <div v-else>
         <h2 style="padding: 1em">All data from API</h2>
@@ -14,7 +14,7 @@
 <script>
 export default {
     name: 'datawindow',
-    props: ['data', 'dayInfo'] // We've passed the data fron the App.vue into this component as a prop
+    props: ['data', 'dateInfo'] // We've passed the data fron the App.vue into this component as a prop
 }
 </script>
 
